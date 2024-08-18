@@ -14,3 +14,11 @@ Route::get('contact', function (){
     return view('client.pages.contact');
 });
 
+Route::get('test', function (){
+    return view('client.layout.master');
+});
+
+
+Route::get('admin/dashboard', function (){
+    return view('admin.layout.master');
+});
