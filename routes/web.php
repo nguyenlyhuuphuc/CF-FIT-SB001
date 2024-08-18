@@ -18,7 +18,14 @@ Route::get('test', function (){
     return view('client.layout.master');
 });
 
-
 Route::get('admin/dashboard', function (){
-    return view('admin.layout.master');
+    return view('admin.pages.dashboard');
+});
+
+Route::get('admin/product', function (){
+    return view('admin.pages.product');
+});
+
+Route::get('admin/blog', function (){
+    return view('admin.pages.blog');
 });
