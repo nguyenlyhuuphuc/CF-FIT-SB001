@@ -24,6 +24,13 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    @if(Session::has('message'))
+                        <p class="alert alert-success">{{ Session::get('message') }}</p>
+                    @endif
+                </div>
+            </div>
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Product Category List</h3>
