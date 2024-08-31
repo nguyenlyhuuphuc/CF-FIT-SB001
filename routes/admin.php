@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('admin/dashboard', function (){
@@ -27,3 +28,9 @@ Route::post('admin/product_category/delete/{id}', [ProductCategoryController::cl
 Route::get('admin/product_category/detail/{id}', [ProductCategoryController::class, 'detail'])->name('admin.product_category.detail');
 
 Route::post('admin/product_category/update/{id}', [ProductCategoryController::class, 'update'])->name('admin.product_category.update');
+
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('product', ProductController::class);
+});
