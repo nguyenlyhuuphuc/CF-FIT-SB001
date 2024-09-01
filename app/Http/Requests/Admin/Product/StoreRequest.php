@@ -27,7 +27,9 @@ class StoreRequest extends FormRequest
             'qty' => 'required|min:1',
             'description' => 'required',
             'status' => 'boolean',
-            'product_category_id' => 'required'
+            'product_category_id' => 'required',
+            'image' => 'required',
+            'slug' => 'required'
         ];
     }
 

@@ -34,3 +34,4 @@ Route::post('admin/product_category/update/{id}', [ProductCategoryController::cl
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('product', ProductController::class);
 });
+Route::post('admin/product/make-slug', [ProductController::class, 'makeSlug'])->name('admin.product.make.slug');

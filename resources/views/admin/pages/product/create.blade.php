@@ -43,6 +43,14 @@
                   </div>
 
                   <div class="form-group">
+                    <label for="slug">Slug</label>
+                    <input name="slug" type="text" class="form-control" id="slug" placeholder="Enter slug" value="{{ old('slug') }}">
+                    @error('slug')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                  </div>
+
+                  <div class="form-group">
                     <label for="image">Image</label>
                     <input name="image" type="file" class="form-control" id="image">
                     @error('image')
@@ -137,4 +145,29 @@
         .catch( /* ... */ );
 </script>
 
+
+
+@endsection
+
+
+@section('my-js')
+    <script>
+        $('document').ready(function(){
+            $('#name').on('keyup', function(){
+                var inputValue = $(this).val();
+
+                $.ajax({
+                    method: "POST", //method of form
+                    url: "{{ route('admin.product.make.slug') }}", //action of form ???
+                    data: { name: inputValue, _token: "{{ csrf_token() }}" }, //input name
+                    success: function (response){
+                        $('#slug').val(response.name);
+                    },
+                    fail: (function() {
+                        alert( "error" );
+                    })
+                });
+            });
+        });
+    </script>
 @endsection

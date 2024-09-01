@@ -62,6 +62,7 @@
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Name</th>
+                      <th>Product Category Name</th>
                       <th>Price</th>
                       <th>Status</th>
                       <th>Action</th>
@@ -72,11 +73,13 @@
                         <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $data->name }}</td>
+                        <td>{{ $data->productCategory?->name }}</td>
                         <td>{{ $data->price }}</td>
                         <td>{{ $data->status ? 'Show' : 'Hide' }}</td>
                         <td>
-                            <form action="{{ route('admin.product_category.delete', ['id' => $data->id]) }}" method="post">
+                            <form action="{{ route('admin.product.destroy', ['product' => $data->id]) }}" method="post">
                                 @csrf
+                                @method('put')
                                 <button class="btn btn-danger" onclick="return confirm('Are you sure ?')" type="submit">Delete</button>
                             </form>
                             <a class="btn btn-primary" href="{{ route('admin.product_category.detail', ['id' => $data->id]) }}">Detail</a>

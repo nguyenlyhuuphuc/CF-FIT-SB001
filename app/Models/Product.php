@@ -19,9 +19,14 @@ class Product extends Model
         'qty',
         'description',
         'status',
-        'product_category_id'
+        'product_category_id',
+        'slug'
     ];
 
     //guarded - NOT ALLOW
     // protected $guarded = [];
+
+    public function productCategory(){
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+    }
 }
