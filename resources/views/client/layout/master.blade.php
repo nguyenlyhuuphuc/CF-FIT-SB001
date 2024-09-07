@@ -50,6 +50,8 @@
     <script src="{{ asset('client_asset/js/mixitup.min.js') }}"></script>
     <script src="{{ asset('client_asset/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('client_asset/js/main.js') }}"></script>
+
+    @yield('my-js')
 </body>
 
 </html>
