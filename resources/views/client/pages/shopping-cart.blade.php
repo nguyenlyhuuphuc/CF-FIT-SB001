@@ -36,8 +36,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($cart as $item)
-                                <tr>
+                            @foreach ($cart as $productId => $item)
+                                <tr id="item-{{ $productId }}">
                                     <td class="shoping__cart__item">
                                         <img src="img/cart/cart-1.jpg" alt="">
                                         <h5>{{ $item['name'] }}</h5>
@@ -56,7 +56,7 @@
                                         ${{ $item['price'] * $item['qty'] }}
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
+                                        <span data-product-id="{{ $productId }}" class="icon_close"></span>
                                     </td>
                                 </tr>
                             @endforeach
@@ -98,4 +98,37 @@
     </div>
 </section>
 <!-- Shoping Cart Section End -->
+@endsection
+
+
+@section('my-js')
+    <script>
+        $('document').ready(function(){
+            $('.icon_close').on('click', function(event){
+
+                var productId = $(this).data('product-id');
+
+                var url = "{{ route('client.cart.delete-product') }}";
+                url += '/'+productId;
+
+                $.ajax({
+                    method: "GET", //method of form
+                    url: url, //action of form
+                    success: function (response){
+                        $('tr#item-'+productId).empty();
+
+                        alert(response.message);
+                    },
+                    fail: (function() {
+                        alert( "error" );
+                    }),
+                    statusCode: {
+                        401: function(){
+                            window.location.href = "{{ route('login') }}"
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

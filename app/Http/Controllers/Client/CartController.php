@@ -30,4 +30,21 @@ class CartController extends Controller
 
         return view('client.pages.shopping-cart', ['cart' => $cart]);
     }
+
+    public function deleteProductToCart(int $productId){
+        $cart = session()->get('cart', []);
+
+        if(array_key_exists($productId, $cart)){
+            unset($cart[$productId]);
+        }
+
+        session()->put('cart', $cart);
+
+        return response()->json(['message' => 'Delete product on cart success!']);
+    }
+
+    public function checkout(){
+        $cart = session()->get('cart', []);
+        return view('client.pages.checkout', ['cart' => $cart]);
+    }
 }

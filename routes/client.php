@@ -22,3 +22,9 @@ Route::get('cart/add-product/{productId?}/qty/{qty?}', [CartController::class, '
 
 Route::get('shopping-cart', [CartController::class, 'index'])
 ->name('client.shopping-cart')->middleware('auth');
+
+Route::get('cart/delete-product/{productId?}', [CartController::class, 'deleteProductToCart'])
+->name('client.cart.delete-product')->middleware('auth');
+
+Route::get('checkout', [CartController::class, 'checkout'])->name('client.checkout');
+
