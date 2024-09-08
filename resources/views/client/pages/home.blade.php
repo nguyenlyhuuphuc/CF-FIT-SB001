@@ -68,7 +68,7 @@
                                 </ul>
                             </div>
                             <div class="featured__item__text">
-                                <h6><a href="#">{{ $product->name }}</a></h6>
+                                <h6><a href="{{ route('client.product.slug', ['slug' => $product->slug]) }}">{{ $product->name }}</a></h6>
                                 <h5>${{ $product->price }}</h5>
                             </div>
                         </div>
@@ -382,7 +382,12 @@
                     },
                     fail: (function() {
                         alert( "error" );
-                    })
+                    }),
+                    statusCode: {
+                        401: function(){
+                            window.location.href = "{{ route('login') }}"
+                        }
+                    }
                 });
 
             });

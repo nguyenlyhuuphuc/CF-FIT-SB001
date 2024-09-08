@@ -17,8 +17,11 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->name();
+        $slug = Str::slug($name);
+
         return [
-            'name' => fake()->name(),
+            'name' => $name,
             'image' => null,
             'price' => fake()->randomFloat(2, 1, 100),
             'short_description' => fake()->text(100),
@@ -29,7 +32,8 @@ class ProductFactory extends Factory
             'information' => fake()->randomHtml(3, 3),
             'reviews' => fake()->randomHtml(3, 3),
             'status' => fake()->boolean(),
-            'product_category_id' => fake()->randomElement(ProductCategory::pluck('id'))
+            'product_category_id' => fake()->randomElement(ProductCategory::pluck('id')),
+            'slug' => $slug
         ];
     }
 }

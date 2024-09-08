@@ -28,6 +28,6 @@ class CartController extends Controller
     public function index(){
         $cart = session()->get('cart', []);
 
-        return view('client.pages.shopping-cart');
+        return view('client.pages.shopping-cart', ['cart' => $cart]);
     }
 }
