@@ -12,32 +12,33 @@
         </div>
         <div class="checkout__form">
             <h4>Billing Details</h4>
-            <form action="#">
+            <form action="{{ route('client.cart.checkout') }}" method="POST">
+                @csrf
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="checkout__input">
                                     <p>Full Name<span>*</span></p>
-                                    <input type="text">
+                                    <input type="text" name="full_name">
                                 </div>
                             </div>
                         </div>
                         <div class="checkout__input">
                             <p>Address<span>*</span></p>
-                            <input type="text" placeholder="Street Address" class="checkout__input__add">
+                            <input type="text" name="address" placeholder="Street Address" class="checkout__input__add">
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="checkout__input">
                                     <p>Phone<span>*</span></p>
-                                    <input type="text">
+                                    <input type="text" name="phone">
                                 </div>
                             </div>
                         </div>
                         <div class="checkout__input">
                             <p>Order notes<span>*</span></p>
-                            <input type="text"
+                            <input type="text" name="notes"
                                 placeholder="Notes about your order, e.g. special notes for delivery.">
                         </div>
                     </div>

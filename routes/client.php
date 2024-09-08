@@ -26,5 +26,6 @@ Route::get('shopping-cart', [CartController::class, 'index'])
 Route::get('cart/delete-product/{productId?}', [CartController::class, 'deleteProductToCart'])
 ->name('client.cart.delete-product')->middleware('auth');
 
-Route::get('checkout', [CartController::class, 'checkout'])->name('client.checkout');
+Route::get('checkout', [CartController::class, 'checkout'])->name('client.checkout')->middleware('auth');
 
+Route::post('place-order', [CartController::class, 'placeOrder'])->name('client.cart.checkout')->middleware('auth');
