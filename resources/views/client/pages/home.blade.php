@@ -372,7 +372,8 @@
                 event.preventDefault();
 
                 var url = "{{ route('client.cart.add-product') }}";
-                url += '/'+productId;
+
+                url = url.replace("//qty", "/"+ productId +"/qty");
 
                 $.ajax({
                     method: "GET", //method of form

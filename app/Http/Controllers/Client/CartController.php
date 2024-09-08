@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function addProductToCart(Request $request, int $productId){
+    public function addProductToCart(Request $request, int $productId, int $qty = 1){
         $cart = session()->get('cart', []);
 
         $product = Product::find($productId);
@@ -17,7 +17,7 @@ class CartController extends Controller
             'name' => $product->name,
             'price' => $product->price,
             'image' => $product->image,
-            'qty' => isset($cart[$productId]['qty']) ? ($cart[$productId]['qty'] + 1) : 1
+            'qty' => isset($cart[$productId]['qty']) ? ($cart[$productId]['qty'] + $qty) : 1
         ];
 
         session()->put('cart', $cart);

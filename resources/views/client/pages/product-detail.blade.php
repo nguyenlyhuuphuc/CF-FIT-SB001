@@ -157,26 +157,23 @@
                 var qty = $('.pro-qty #product-qty').val();
 
                 var url = $(this).data('url');
-                url += '/qty/'+qty;
+                url += '/'+qty;
 
-                alert(url);
-
-                // $.ajax({
-                //     method: "GET", //method of form
-                //     url: url, //action of form
-                //     success: function (response){
-                //         alert(response.message);
-                //     },
-                //     fail: (function() {
-                //         alert( "error" );
-                //     }),
-                //     statusCode: {
-                //         401: function(){
-                //             window.location.href = "{{ route('login') }}"
-                //         }
-                //     }
-                // });
-
+                $.ajax({
+                    method: "GET", //method of form
+                    url: url, //action of form
+                    success: function (response){
+                        alert(response.message);
+                    },
+                    fail: (function() {
+                        alert( "error" );
+                    }),
+                    statusCode: {
+                        401: function(){
+                            window.location.href = "{{ route('login') }}"
+                        }
+                    }
+                });
             });
         });
     </script>
