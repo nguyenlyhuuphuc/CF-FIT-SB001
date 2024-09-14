@@ -3,8 +3,15 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderEmailAdmin;
+use App\Mail\OrderEmailCustomer;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -12,6 +19,10 @@ class CartController extends Controller
         $cart = session()->get('cart', []);
 
         $product = Product::find($productId);
+
+        if($product->qty <= 0){
+            return response()->json(['message' => 'Product out of stock']);
+        }
 
         $cart[$productId] = [
             'name' => $product->name,
@@ -49,6 +60,58 @@ class CartController extends Controller
     }
 
     public function placeOrder(Request $request){
-        dd($request->all());
+        try{
+            DB::beginTransaction();
+
+            $total = 0;
+            $cart = session()->get('cart', []);
+            foreach($cart as $item){
+                $total += $item['price'] * $item['qty'];
+            }
+
+            $order = new Order;
+            $order->address = $request->name;
+            $order->note = $request->notes;
+            $order->status = 'pending';
+            $order->user_id = Auth::user()->id;
+            $order->total = $total;
+            $order->save(); // Insert new record
+
+            foreach($cart as $productId => $item){
+                $orderItem = new OrderItem;
+                $orderItem->price = $item['price'];
+                $orderItem->qty = $item['qty'];
+                $orderItem->image = $item['image'];
+                $orderItem->name = $item['name'];
+                $orderItem->product_id = $productId;
+                $orderItem->order_id = $order->id;
+                $orderItem->save(); // Insert new record
+            }
+
+            $user = Auth::user();
+            $user->phone = $request->phone;
+            $user->save(); //update record
+
+            //Empty Cart
+            session()->put('cart', []);
+
+            //Send mail customer
+            Mail::to('nguyenlyhuuphucwork@gmail.com')->send(new OrderEmailCustomer($order));
+            //Send mail admin
+            Mail::to('nguyenlyhuuphucwork@gmail.com')->send(new OrderEmailAdmin($order));
+            //Minus qty on product
+            foreach($cart as $productId => $item){
+                $product = Product::find($productId);
+                $product->qty -= $item['qty'];
+                $product->save(); //update record
+            }
+
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+        }
+
+        //Flash message
+        return redirect()->route('home')->with('message', '');
     }
 }

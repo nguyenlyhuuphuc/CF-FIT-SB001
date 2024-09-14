@@ -20,7 +20,7 @@
                             <div class="col-lg-12">
                                 <div class="checkout__input">
                                     <p>Full Name<span>*</span></p>
-                                    <input type="text" name="full_name">
+                                    <input type="text" name="full_name" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                             <div class="col-lg-12">
                                 <div class="checkout__input">
                                     <p>Phone<span>*</span></p>
-                                    <input type="text" name="phone">
+                                    <input type="text" name="phone" value="{{ Auth::user()->phone }}">
                                 </div>
                             </div>
                         </div>
