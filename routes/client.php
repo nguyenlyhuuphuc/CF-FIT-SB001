@@ -41,3 +41,4 @@ Route::get('test-send-mail', function(){
 
 Route::get('google/callback', [GoogleController::class, 'callback'])->name('client.google.callback');
 Route::get('google/redirect', [GoogleController::class, 'redirect'])->name('client.google.redirect');
+Route::get('vnpay/callback', [CartController::class, 'vnpayCallBack'])->name('client.vnpay.callback');

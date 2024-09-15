@@ -56,16 +56,23 @@
                             <div class="checkout__order__subtotal">Subtotal <span>${{ $total }}</span></div>
                             <div class="checkout__order__total">Total <span>${{ $total }}</span></div>
                             <div class="checkout__input__checkbox">
-                                <label for="payment">
-                                    VNPay
-                                    <input type="checkbox" id="payment">
+                                <label for="VNBANK">
+                                    Thanh toán qua thẻ ATM/Tài khoản nội địa
+                                    <input type="radio" id="VNBANK" name="bank_code" value="VNBANK">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="checkout__input__checkbox">
+                                <label for="INTCARD">
+                                    Thanh toán qua thẻ quốc tế
+                                    <input type="radio" id="INTCARD" name="bank_code" value="INTCARD">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                             <div class="checkout__input__checkbox">
                                 <label for="paypal">
                                     COD ( Cash on delivery)
-                                    <input type="checkbox" id="paypal">
+                                    <input type="radio" id="paypal" name="bank_code" value="COD">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
